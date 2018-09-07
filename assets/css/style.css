@@ -1,15 +1,19 @@
 body {
-
+  /* Empty */
 }
 
 .my-jumbotron-container {
   background-color: #fbe4cf;
-padding-top: 15px;
-padding-bottom: 5px;
+  padding-top: 15px;
+  padding-bottom: 5px;
 }
 
 .my-jumbotron-right {
-  padding-top: 20px;
+  padding-top: 20px auto 20px auto;
+}
+
+.my-jumbotron-right table {
+  margin: 0 auto;
 }
 
 .my-table {

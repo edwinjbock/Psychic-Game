@@ -13,6 +13,12 @@
   <!-- My Custom CSS -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+  <script> // Equivalent of jQuery for waiting till page loads
+  document.addEventListener("DOMContentLoaded", function (event) {
+      //do work
+    });
+  </script>
+
   <title>The Gypsy Challenge</title>
 </head>
 
@@ -71,7 +77,7 @@
                   </tr>
                   <tr>
                     <td colspan="2" id="my-result">
-                      <p id="htmlMessage" class="lead">You Won!</p>
+                      <p class="lead" id="htmlMessage">You Won!</p>
                     </td>
                   </tr>
                 </table>
