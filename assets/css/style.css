@@ -26,6 +26,12 @@ td {
   font-weight: bold;
 }
 
+#my-result p {
+  color: #c3002f;
+  font-weight: bold;
+  text-align: center;
+}
+
 .my-image-container {
   background-color: black;
   max-width: 100%;
