@@ -56,7 +56,7 @@ document.onkeyup = function(event) {
   else if (isAlpha(userGuessVetted) == true) {
     // if alpha then do everything else
     if (guessesRemaining == 10) {
-      // Computer Choice Randomizes ONLY ONCE during each match
+      // Computer Choice Randomizes EACH TIME there are 10 tries left during each match
       computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
       // Change key variables
       guessesSoFar = userGuess;
@@ -65,28 +65,30 @@ document.onkeyup = function(event) {
     else {
       guessesRemaining = guessesRemaining - 1;
       guessesSoFar = guessesSoFar + ", " + userGuess;
-      // Check for win or loss
-      if (userGuessVetted == computerChoice) {
-        wins++;
-        resultsMsg = "You won! Go again.";
-        // Reset malleable variables
-        guessesRemaining = 10;
-        guessesSoFar = "";
-      }
-      else if (guessesRemaining == 0) {
-        losses++;
-        resultsMsg = "You lost. Try again.";
-        // Reset due to end of match
-        guessesRemaining = 10;
-        guessesSoFar = "";
-      }
-      else { } // do nothing
     }
+
+    // Check for win or loss
+    if (userGuessVetted == computerChoice) {
+      wins++;
+      resultsMsg = "You won! Go again.";
+      // Reset malleable variables
+      guessesRemaining = 10;
+      guessesSoFar = "";
+    }
+    else if ((guessesRemaining == 0) && (isAlpha(userGuessVetted) == true)) {
+      losses++;
+      resultsMsg = "You lost. Try again.";
+      // Reset due to end of match
+      guessesRemaining = 10;
+      guessesSoFar = "";
+    }
+    else { } // do nothing
+    
   }
   else {
     // do nothing (used an else if above instead of else so that I could see the logical progression)
   }
-  
+
   // Port the results back to the DOM
   winsText.textContent = wins;
   lossesText.textContent = losses;
