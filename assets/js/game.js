@@ -5,6 +5,7 @@ var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 var wins = 0;
 var losses = 0;
 var guessesRemaining = 10;
+var userGuess = "";
 
 // Create variables that hold references to the places in the HTML where we want to display things.
 var winsText = document.getElementById("htmlWins");
@@ -12,6 +13,19 @@ var lossesText = document.getElementById("htmlLosses");
 var guessesRemainingText = document.getElementById("htmlGuessesRemaining");
 var guessesSoFarText = document.getElementById("htmlGuessesSoFar");
 var resultsText = document.getElementById("htmlMessage");
+
+// Global function to test for alpha event.key
+function isAlpha(str) {
+  for (i = 0; i < computerChoices.length; i++) {
+    if (str === computerChoices[i]) {
+      return true;
+    } else { }
+  } // end of for loop
+  return false;
+} // end of isAlpha()
+
+
+
 
 // ******* TESTING ********
 // console.log(winsText);
@@ -30,7 +44,7 @@ document.onkeyup = function (event) {
   var userGuessVetted = userGuess.toLowerCase();
 
   // Computer Choice
-  If ()
+  
   var computerChoice = computerChoices[Math.floor(Math.random() * (computerChoices.length - 1))];
   // Equate the result to a letter in the array
   // ******* TESTING ********
@@ -43,20 +57,10 @@ document.onkeyup = function (event) {
 
 
   // Verify that the user pressed an alpha character
-  isAlpha(userGuess);
-
-  function isAlpha(str) {
-    if (!(str > 64 && str < 91) && // upper alpha (A-Z)
-      !(str > 96 && str < 123))  // lower alpha (a-z)
-        {
-        return false;
-      }
-    }
-    return true;
-  };
+  isAlpha(userGuessVetted);
 
   // ******* TESTING ********
-  console.log("isAlpha: " + userGuess.isAlpha(userGuess));
+  console.log("isAlpha: " + isAlpha(userGuess));
 
   // Vet the key stroke, making sure that it is contained in the array above
   // <A>
@@ -87,14 +91,8 @@ document.onkeyup = function (event) {
 
 
   // <A> Need logic for when remaining guesses reach zero
-  guessesRemainingText.textContent = guessesRemaining - 1;
+  // guessesRemainingText = (parseInt(guessesRemaining) - 1);
 
 
-
-
-
-
-
-
- // End of document.onkeyup
+} // End of document.onkeyup
 
