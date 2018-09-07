@@ -6,7 +6,7 @@ var wins = 0;
 var losses = 0;
 var guessesRemaining = 10;
 var userGuess = "";
-var computerChoice = "";
+var computerChoice = "z";
 
 // Variables that refer to the HTML
 var winsText = document.getElementById("htmlWins");
@@ -31,8 +31,14 @@ console.log(lossesText);
 console.log(guessesRemainingText);
 console.log(guessesSoFarText);
 
+
+
+guessesRemainingText = 10;
+
+
+
 // KICK OFF THE GAME WITH A KEYSTROKE
-document.onkeyup = function (event) {
+document.onkeyup = function(event) {
 
   // Clears the You Won/You Lost message after a key is pressed
   var resultsText = "";
@@ -41,6 +47,10 @@ document.onkeyup = function (event) {
   guessesRemaining = parseInt(guessesRemaining);
   guessesRemainingText = parseInt(guessesRemainingText);
 
+  // ******* TESTING *******
+  console.log(guessesRemainingText);
+  console.log(guessesRemaining);
+
   // Determine which key was pressed and then convert it to lowercase for comparing to the array above
   var userGuess = event.key;
   var userGuessVetted = userGuess.toLowerCase();
@@ -48,46 +58,47 @@ document.onkeyup = function (event) {
   // Verify that the user pressed an alpha character
   if (isAlpha(userGuessVetted) == false) {
     // If they didn't, tell them and return
-    resultsText = "Letters only, please";
-    htmlMessage = resultsText;
+    resultsText.textContent = "Letters only, please";
+
+            console.log(resultsText);
+
     return;
   }
   else if (isAlpha(userGuessVetted) == true) {
     // if alpha then do everything else
-    if (guessesRemainingText == 10) {
+    if (parseInt(guessesRemainingText) === 10) {
       // Computer Choice Randomizes ONLY ONCE during each match
-      computerChoice = "a";
-      // computerChoice = computerChoices[Math.floor(Math.random() * (computerChoices.length - 1))];
+      computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
       // Change key variables
-      guessesSoFarText = userGuessVetted;
-      guessesRemainingText = guessesRemainingText - 1;
+      guessesSoFarText = userGuess;
+      guessesRemainingText = parseInt(guessesRemainingText) - 1;
     }
     else {
-      guessesRemainingText = guessesRemainingText - 1;
-      guessesSoFarText = guessesSoFarText + ", " + userGuess;
+      guessesRemainingText.textContent = parseInt(guessesRemainingText) - 1;
+      guessesSoFarText.textContent = guessesSoFarText + ", " + userGuess;
       // Check for win or loss
       if (userGuessVetted == computerChoice) {
         wins++;
-        resultsText = "You won!";
+        resultsText.textContent = "You won!";
         // Reset malleable variables
-        guessesRemainingText = 10;
-        guessesSoFarText = "";
+        guessesRemainingText.textContent = 10;
+        guessesSoFarText.textContent = "";
       }
       else if (guessesRemainingText == 0) {
         losses++;
         resultsText = "You lost the Gypsy's Challenge";
         // Reset due to end of match
         guessesRemainingText = 10;
-        guessesSoFarText = "";
+        guessesSoFar = "";
       }
       else { } // do nothing
     }
     // Port the results back to the DOM
     winsText.textContent = wins;
     lossesText.textContent = losses;
-    guessesRemainingText.textContent = guessesRemainingText;
-    guessesSoFarText.textContent = guessesSoFarText;
-    resultsText.textContent = resultsText;
+    guessesRemainingText.textContent = guessesRemaining;
+    guessesSoFarText.textContent = guessesSoFar;
+    resultsText.textContent = resultsMsg;
   }
   else {
     return;
