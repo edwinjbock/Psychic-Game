@@ -9,31 +9,36 @@ body {
 }
 
 .my-jumbotron-right {
-  padding-top: 20px auto 20px auto;
+  padding-top: 20px 0 20px 10px;
 }
 
 .my-jumbotron-right table {
-  margin: 0 auto;
+  margin: 0;
 }
 
 .my-table {
   border: none;
 }
 
+/* table { /* ?????????? */
+  text-align: left;
+} */
+
 th {
-  text-align: center;
-  padding-right: 10px;
+  text-align: right;
+  padding: 0 10px 0 10px;
 }
 
 td {
   text-align: left;
   font-weight: bold;
+  padding: 0 10px 0 10px;
 }
 
 #my-result p {
   color: #c3002f;
   font-weight: bold;
-  text-align: center;
+  text-align: cemter;
 }
 
 .my-image-container {
