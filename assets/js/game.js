@@ -1,20 +1,21 @@
-// List all of the array possibilities
+// List all of the alpha array possibilities
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-// Variables to hold the data inputted so far
+// Variables related to the scripting logic
 var wins = 0;
 var losses = 0;
 var guessesRemaining = 10;
 var userGuess = "";
+var computerChoice = "";
 
-// Create variables that hold references to the places in the HTML where we want to display things.
+// Variables that refer to the HTML
 var winsText = document.getElementById("htmlWins");
 var lossesText = document.getElementById("htmlLosses");
 var guessesRemainingText = document.getElementById("htmlGuessesRemaining");
 var guessesSoFarText = document.getElementById("htmlGuessesSoFar");
 var resultsText = document.getElementById("htmlMessage");
 
-// Global function to test for alpha event.key
+// Global function to test for an alpha event.key
 function isAlpha(str) {
   for (i = 0; i < computerChoices.length; i++) {
     if (str === computerChoices[i]) {
@@ -24,14 +25,11 @@ function isAlpha(str) {
   return false;
 } // end of isAlpha()
 
-
-
-
 // ******* TESTING ********
-// console.log(winsText);
-// console.log(lossesText);
-// console.log(guessesRemainingText);
-// console.log(guessesSoFarText);
+console.log(winsText);
+console.log(lossesText);
+console.log(guessesRemainingText);
+console.log(guessesSoFarText);
 
 // KICK OFF THE GAME WITH A KEYSTROKE
 document.onkeyup = function (event) {
@@ -39,60 +37,70 @@ document.onkeyup = function (event) {
   // Clears the You Won/You Lost message after a key is pressed
   var resultsText = "";
 
+  // guessesRemaining needs to be an integer. Not a string.
+  guessesRemaining = parseInt(guessesRemaining);
+  guessesRemainingText = parseInt(guessesRemainingText);
+
   // Determine which key was pressed and then convert it to lowercase for comparing to the array above
   var userGuess = event.key;
   var userGuessVetted = userGuess.toLowerCase();
 
-  // Computer Choice
-  
-  var computerChoice = computerChoices[Math.floor(Math.random() * (computerChoices.length - 1))];
-  // Equate the result to a letter in the array
+  // Verify that the user pressed an alpha character
+  if (isAlpha(userGuessVetted) == false) {
+    // If they didn't, tell them and return
+    resultsText = "Letters only, please";
+    htmlMessage = resultsText;
+    return;
+  }
+  else if (isAlpha(userGuessVetted) == true) {
+    // if alpha then do everything else
+    if (guessesRemainingText == 10) {
+      // Computer Choice Randomizes ONLY ONCE during each match
+      computerChoice = "a";
+      // computerChoice = computerChoices[Math.floor(Math.random() * (computerChoices.length - 1))];
+      // Change key variables
+      guessesSoFarText = userGuessVetted;
+      guessesRemainingText = guessesRemainingText - 1;
+    }
+    else {
+      guessesRemainingText = guessesRemainingText - 1;
+      guessesSoFarText = guessesSoFarText + ", " + userGuess;
+      // Check for win or loss
+      if (userGuessVetted == computerChoice) {
+        wins++;
+        resultsText = "You won!";
+        // Reset malleable variables
+        guessesRemainingText = 10;
+        guessesSoFarText = "";
+      }
+      else if (guessesRemainingText == 0) {
+        losses++;
+        resultsText = "You lost the Gypsy's Challenge";
+        // Reset due to end of match
+        guessesRemainingText = 10;
+        guessesSoFarText = "";
+      }
+      else { } // do nothing
+    }
+    // Port the results back to the DOM
+    winsText.textContent = wins;
+    lossesText.textContent = losses;
+    guessesRemainingText.textContent = guessesRemainingText;
+    guessesSoFarText.textContent = guessesSoFarText;
+    resultsText.textContent = resultsText;
+  }
+  else {
+    return;
+  }
+
   // ******* TESTING ********
+  console.log("userGuess: " + userGuess);
+  console.log("userGuessVetted: " + userGuessVetted);
+  console.log("isAlpha: " + isAlpha(userGuess));
   console.log("computerChoices.length: " + computerChoices.length);
   console.log("computerChoice: " + computerChoice);
   console.log("computerChoices.length - 1: " + (computerChoices.length - 1));
 
-  // Make sure that the computer didn't randomly choose index zero, resulting in a possible value of index [-1]
+}; // End of document.onkeyup
 
-
-
-  // Verify that the user pressed an alpha character
-  isAlpha(userGuessVetted);
-
-  // ******* TESTING ********
-  console.log("isAlpha: " + isAlpha(userGuess));
-
-  // Vet the key stroke, making sure that it is contained in the array above
-  // <A>
-
-
-
-
-
-
-  // ******* TESTING ********
-  console.log("userGuess: " + userGuess);
-  console.log("computerChoice: " + computerChoice);
-  console.log("userGuessVetted: " + userGuessVetted);
-
-  // TESTING BELOW OUTPUT
-  winsText = 100;
-  lossesText = 101;
-  guessesRemainingText = 102;
-  guessesSoFarText = "a";
-  var resultsText = "Test";
-
-  // Port the results back to the DOM
-  htmlWins.textContent = winsText;
-  htmlLosses.textContent = lossesText;
-  htmlGuessesRemaining.textContent = guessesRemainingText;
-  htmlGuessesSoFar = htmlGuessesSoFar + ", " + guessesSoFarText;
-  htmlMessage = resultsText;
-
-
-  // <A> Need logic for when remaining guesses reach zero
-  // guessesRemainingText = (parseInt(guessesRemaining) - 1);
-
-
-} // End of document.onkeyup
-
+// END OF FILE
