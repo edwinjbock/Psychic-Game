@@ -33,7 +33,6 @@ console.log(guessesSoFarText);
 
 
 
-guessesRemainingText = 10;
 
 
 
@@ -41,11 +40,11 @@ guessesRemainingText = 10;
 document.onkeyup = function(event) {
 
   // Clears the You Won/You Lost message after a key is pressed
-  var resultsText = "";
+  var resultsMsg = "";
 
   // guessesRemaining needs to be an integer. Not a string.
   guessesRemaining = parseInt(guessesRemaining);
-  guessesRemainingText = parseInt(guessesRemainingText);
+  // guessesRemainingText = parseInt(guessesRemainingText);
 
   // ******* TESTING *******
   console.log(guessesRemainingText);
@@ -58,37 +57,37 @@ document.onkeyup = function(event) {
   // Verify that the user pressed an alpha character
   if (isAlpha(userGuessVetted) == false) {
     // If they didn't, tell them and return
-    resultsText.textContent = "Letters only, please";
+    resultsMsg = "Letters only, please";
 
-            console.log(resultsText);
+            console.log(resultsMsg);
 
     return;
   }
   else if (isAlpha(userGuessVetted) == true) {
     // if alpha then do everything else
-    if (parseInt(guessesRemainingText) === 10) {
+    if (parseInt(guessesRemaining) === 10) {
       // Computer Choice Randomizes ONLY ONCE during each match
       computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
       // Change key variables
-      guessesSoFarText = userGuess;
-      guessesRemainingText = parseInt(guessesRemainingText) - 1;
+      guessesSoFar = userGuess;
+      guessesRemaining = parseInt(guessesRemaining) - 1;
     }
     else {
-      guessesRemainingText.textContent = parseInt(guessesRemainingText) - 1;
-      guessesSoFarText.textContent = guessesSoFarText + ", " + userGuess;
+      guessesRemaining = parseInt(guessesRemaining) - 1;
+      guessesSoFar = guessesSoFar + ", " + userGuess;
       // Check for win or loss
       if (userGuessVetted == computerChoice) {
         wins++;
-        resultsText.textContent = "You won!";
+        resultsMsg = "You won!";
         // Reset malleable variables
-        guessesRemainingText.textContent = 10;
-        guessesSoFarText.textContent = "";
+        guessesRemaining = 10;
+        guessesSoFar = "";
       }
-      else if (guessesRemainingText == 0) {
+      else if (guessesRemaining == 0) {
         losses++;
-        resultsText = "You lost the Gypsy's Challenge";
+        resultsMsg = "You lost the Gypsy's Challenge";
         // Reset due to end of match
-        guessesRemainingText = 10;
+        guessesRemaining = 10;
         guessesSoFar = "";
       }
       else { } // do nothing
