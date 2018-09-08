@@ -8,6 +8,7 @@ var guessesRemaining = 10;
 var userGuess = "";
 var computerChoice = "z";
 var guessesSoFar = "";
+var guessesSoFarArray = [];
 
 // Variables that refer to the HTML
 var winsText = document.getElementById("htmlWins");
@@ -25,6 +26,37 @@ function isAlpha(str) {
   } // end of for loop
   return false;
 } // end of isAlpha()
+
+
+// Global function to check for duplicate entries
+// function isDuplicate(str) {
+//   var result;
+//   for (i = 0; i < guessesSoFarArray.length; i++) {
+//     if (str == guessesSoFarArray[i]) {
+//       result = "duplicate";
+//     }
+//     else { } // do nothing
+//   }
+//   console.log("isDuplicate() result: " + result);
+//   if (result == "duplicate") {
+//     return "duplicate";
+//   }
+//   else {
+//     return "not duplicate";
+//   }
+// } // end of isDuplicate()
+
+
+// Global function to test for a duplicate event.key
+function isDuplicate(str) {
+  for (i = 0; i < guessesSoFarArray.length; i++) {
+    if (str === guessesSoFarArray[i]) {
+      return true;
+    } else { }
+  } // end of for loop
+  return false;
+} // end of isDuplicate()
+
 
 console.log(winsText); // ******* TESTING ********
 console.log(lossesText); // ******* TESTING ********
@@ -53,11 +85,21 @@ document.onkeyup = function(event) {
     resultsMsg = "Letters only, please";
     console.log(resultsMsg); // **** Test ****
   }
-  else if (isAlpha(userGuessVetted) == true) {
-    // if alpha then do everything else
+  else if (isDuplicate(userGuessVetted) == true) {
+    // If it's a duplicate then tell them and return
+    resultsMsg = "No duplicates, please";
+    console.log(resultsMsg); // **** Test ****
+  }
+  else if ((isAlpha(userGuessVetted) == true) && (isDuplicate(userGuessVetted) == false)) {
+    // if alpha then do everything else, provided the entry isn't a duplicate
+
+    // Add the entry to the array
+    guessesSoFarArray.push(userGuessVetted);
+
     if (guessesRemaining == 10) {
       // Computer Choice Randomizes EACH TIME there are 10 tries left during each match
       computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
       // Change key variables
       guessesSoFar = userGuess;
       guessesRemaining = guessesRemaining - 1;
@@ -74,6 +116,7 @@ document.onkeyup = function(event) {
       // Reset malleable variables
       guessesRemaining = 10;
       guessesSoFar = "";
+      guessesSoFarArray = [];
     }
     else if ((guessesRemaining == 0) && (isAlpha(userGuessVetted) == true)) {
       losses++;
@@ -81,6 +124,7 @@ document.onkeyup = function(event) {
       // Reset due to end of match
       guessesRemaining = 10;
       guessesSoFar = "";
+      guessesSoFarArray = [];
     }
     else { } // do nothing
     
