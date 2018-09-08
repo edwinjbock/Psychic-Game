@@ -6,7 +6,7 @@ var wins = 0;
 var losses = 0;
 var guessesRemaining = 10;
 var userGuess = "";
-var computerChoice = "z";
+var computerChoice = "";
 var guessesSoFar = "";
 var guessesSoFarArray = [];
 
@@ -27,26 +27,6 @@ function isAlpha(str) {
   return false;
 } // end of isAlpha()
 
-
-// Global function to check for duplicate entries
-// function isDuplicate(str) {
-//   var result;
-//   for (i = 0; i < guessesSoFarArray.length; i++) {
-//     if (str == guessesSoFarArray[i]) {
-//       result = "duplicate";
-//     }
-//     else { } // do nothing
-//   }
-//   console.log("isDuplicate() result: " + result);
-//   if (result == "duplicate") {
-//     return "duplicate";
-//   }
-//   else {
-//     return "not duplicate";
-//   }
-// } // end of isDuplicate()
-
-
 // Global function to test for a duplicate event.key
 function isDuplicate(str) {
   for (i = 0; i < guessesSoFarArray.length; i++) {
@@ -56,7 +36,6 @@ function isDuplicate(str) {
   } // end of for loop
   return false;
 } // end of isDuplicate()
-
 
 console.log(winsText); // ******* TESTING ********
 console.log(lossesText); // ******* TESTING ********
